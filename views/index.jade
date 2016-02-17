@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1= title
+  form(method="post",id="login")
+    input(type="text",id="username")
+    input(type="button",id="btn",value="ok")
+  p Welcome to #{title}
+  p #{name}
+block scripts
+  script.
+    $(function(){
+      $("#btn").click(function(e){
+        e.preventDefault();
+        var name = $("#username").val();
+        $.ajax({
+          type: 'POST',
+          url: '/users/add',
+          dataType:'json',
+          data: {"name":name},
+          success: function(data){
+            window.location.href="./users"
+          }
+        });
+      })
+    })
